@@ -1,15 +1,19 @@
 <template>
-<div>
 <ul>
-  <li v-for="(film, index) in films" :key="index">
+  <li v-for="(film, index) in films" :key="index" @click='selectFilm(index)' :class='{ higher: film.checked }'>
     <film-card
     :author="film.author"
-    :title="film.author"
+    :title="film.title"
     :year="film.year"
+    :checked="film.checked"
     />
+    <div class='bio' v-if="film.checked">НАЖАТ</div>
   </li>
+  <div v-if='dark' class="dark"></div>
 </ul>
-</div>
+
+
+
 </template>
 
 <script>
@@ -21,16 +25,24 @@ export default {
     data() {
         return {
             films: [],
+            dark: false
         }
     },
     methods: {
         getFilms() {
             axios.get('http://localhost:5000/films')
-            .then((res) => {this.films = res.data.films; console.log(self.films)})
+            .then((res) => {this.films = res.data.films; console.log(res.data.films)})
             .catch((e) => {console.log(e)})
         },
-        showFilms() {
-            console.log(this.films)
+        selectFilm(index) {
+          this.dark = true;
+          console.log(index)
+          for (let i = 0; i < this.films.length; i++) {
+            if (i != index) {
+              this.films[i].checked = false
+            }
+            this.films[index].checked = true
+          }
         }
     },
     created() {
@@ -110,8 +122,37 @@ select {
 }
 
 ul {
-    display: flex;
-    gap: 20px;
+  margin: 20px auto ;
+  display: flex;
+  width: 1100px;
+  gap: 40px;
+  padding: 100px;
+}
+li {
+  width: 33%;
+}
+.bio {
+  margin-top: 100px;
+  background-color: aliceblue;
+}
+.dark {
+    background-color: black;
+    opacity: 50%;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform: scale(2);
+    pointer-events: none;
+}
+.higher {
+  z-index: 15;
+}
+.bio {
+  position: absolute;
+  width: 100%;
+  right: 0;
+  height: 500px;
 }
 
 </style>

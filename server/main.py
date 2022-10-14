@@ -9,17 +9,20 @@ FILMS = [
     {
         'title': 'On the Road',
         'author': 'Jack Kerouac',
-        'year': 1000
+        'year': 1000,
+        'checked': False
     },
     {
         'title': 'Harry Potter and the Philosopher\'s Stone',
         'author': 'J. K. Rowling',
-        'year': 41142
+        'year': 41142,
+        'checked': False
     },
     {
         'title': 'Green Eggs and Ham',
         'author': 'Dr. Seuss',
-        'year': 2007
+        'year': 2007,
+        'checked': False
     }
 ]
 

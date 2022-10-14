@@ -10,7 +10,7 @@ export default {
     name: 'Ping',
     data() {
         return {
-            msg: 'hallo nigga'
+            msg: ''
         }
     },
     methods: {
