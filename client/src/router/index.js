@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Ping from '@/components/Ping'
 import FilmList from '@/components/FilmList'
-
+import HomePage from '@/components/HomePage'
 const routes = [
   {
     path: '/ping',
@@ -12,6 +12,11 @@ const routes = [
     path: '/films',
     name: 'films',
     component: FilmList
+  },
+  {
+    path: '/',
+    name: 'HomePage',
+    component: HomePage
   }
 ]
 

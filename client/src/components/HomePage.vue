@@ -1,59 +1,31 @@
 <template>
 <div>
-<router-link to="/">
- <button class="nav">На главную</button>
-</router-link>
-<ul>
-  <li v-for="(film, index) in films" :key="index" @click='selectFilm(index)' :class='{ higher: film.checked }'>
-    <film-card
-    :author="film.author"
-    :title="film.title"
-    :year="film.year"
-    :checked="film.checked"
-    />
-    <div class='bio' v-if="dark">
-      {{film.bio}}
-    </div>
-  </li>
-</ul>
+  <router-link to="/films">
+  <button class='nav'>Films</button>
+  </router-link>
+  <div class='mes'>{{mes}}</div>
 </div>
-
-
-
 
 </template>
 
 <script>
 import axios from 'axios'
-import FilmCard from '../components/FilmCard.vue'
 export default {
-    name: 'FilmList',
-    components: {FilmCard},
+    name: 'HomePage',
     data() {
         return {
-            films: [],
-            dark: false,
+            mes: ''
         }
     },
     methods: {
-        getFilms() {
-            axios.get('http://localhost:5000/films')
-            .then((res) => {this.films = res.data.films; console.log(res.data.films)})
+        getMes() {
+            axios.get('http://localhost:5000/')
+            .then((res) => {this.mes = res.data.mes; console.log(res.data.mes)})
             .catch((e) => {console.log(e)})
-        },
-        selectFilm(index) {
-          this.dark = true;
-          console.log(index)
-          for (let i = 0; i < this.films.length; i++) {
-            if (i != index) {
-              this.films[i].checked = false
-            }
-            this.films[index].checked = true
-          }
         }
     },
     created() {
-        this.getFilms()
+        this.getMes()
     }
 }
 </script>
@@ -160,7 +132,10 @@ li {
   width: 100%;
   right: 0;
   height: 500px;
-  z-index: 10;
 }
-
+.mes {
+  color: white;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 24px;
+}
 </style>
